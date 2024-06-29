@@ -1,0 +1,50 @@
+/* Navbar Container */
+.navbar {
+    background-color: #333;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  /* Navbar Logo */
+  .navbar-logo {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  /* Navbar Menu */
+  .navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Navbar Items */
+  .navbar-item {
+    text-transform: uppercase;
+  }
+  
+  /* Navbar Links */
+  .navbar-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s;
+  }
+  
+  .navbar-link:hover {
+    color: #ff6347; /* Change this color to whatever you prefer for hover effect */
+  }
+  

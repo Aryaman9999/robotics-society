@@ -1,0 +1,33 @@
+.resources {
+    padding: 2rem;
+  }
+  
+  .repo-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .repo-item {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: box-shadow 0.3s;
+  }
+  
+  .repo-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .repo-link {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007acc;
+    text-decoration: none;
+  }
+  
+  .repo-link:hover {
+    text-decoration: underline;
+  }
+  

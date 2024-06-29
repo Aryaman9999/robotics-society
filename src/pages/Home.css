@@ -1,0 +1,12 @@
+/* Optional CSS for Text Styling */
+.content {
+    margin: 20px;
+    line-height: 1.6; /* Adjust line height for readability */
+  }
+  
+  .content p {
+    margin-bottom: 10px;
+    font-size: 1rem; /* Adjust font size */
+    color: #333; /* Adjust text color */
+  }
+  
