@@ -1,30 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import CarouselComponent from '../components/Carousel';
-import axios from 'axios'; // Or use fetch if you prefer
+import React from 'react';
+import CarouselComponent from '../components/CarouselComponent';
+import './Home.css';
 
 const Home = () => {
-  const [data, setData] = useState({ title: '', points: [] });
-
-  useEffect(() => {
-    axios.get('http://localhost:3001/api/data')
-      .then(response => {
-        setData(response.data);
-      })
-      .catch(error => {
-        console.error('There was an error fetching the data!', error);
-      });
-  }, []);
-
   return (
-    <div>
-      <h1>Welcome to Robotics Society</h1>
+    <div className="home-container">
       <CarouselComponent />
-      <div className="content">
-        <h2>{data.title}</h2>
+      <div className="home-content">
+        <h2>How will joining robotics help students?</h2>
         <ul>
-          {data.points.map((point, index) => (
-            <li key={index}>{point}</li>
-          ))}
+          <li>Robotics teaches essential teamwork skills.</li>
+          <li>Students will be able to compete in robotics competitions held by our college or any other college and win prizes or scholarships.</li>
+          <li>Students learn how to communicate across different technology platforms and gain experience in creating an effective message for various audiences.</li>
         </ul>
       </div>
     </div>
