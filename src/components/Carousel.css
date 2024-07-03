@@ -1,19 +1,5 @@
-/* Carousel Component Styles */
-
-/* Optional: Reduce size of carousel */
-.custom-carousel {
-    max-width: 100px; /* Adjust maximum width as needed */
-    margin: 0 auto; /* Center the carousel */
-  }
-  
-  /* Optional: Hide caption */
-  .carousel .legend {
-    display: none; /* Hide captions */
-  }
-  
-  /* Optional: Adjust image size */
-  .carousel img {
-    max-width: 50%; /* Ensure images resize responsively */
-    height: auto; /* Maintain aspect ratio */
-  }
-  
+.carousel .carousel-image {
+  max-width: 100%; 
+  max-height: 400px; 
+  object-fit: contain; 
+}

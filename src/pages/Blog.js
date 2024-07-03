@@ -1,3 +1,4 @@
+// src/Blog.js
 import React, { useEffect, useState } from 'react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import client from '../contentfulClient';
@@ -5,6 +6,7 @@ import './Blog.css';
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
+  const [expandedPost, setExpandedPost] = useState(null);
 
   useEffect(() => {
     console.log('Blog component is rendering');
@@ -30,12 +32,16 @@ const Blog = () => {
         setPosts(response.blogPostCollection.items);
       } catch (error) {
         console.error('Error fetching data:', error.message);
-        console.log('Full error:', error);  // Log the full error object for more details
+        console.log('Full error:', error);  
       }
     };
 
     fetchPosts();
   }, []);
+
+  const toggleReadMore = (index) => {
+    setExpandedPost(expandedPost === index ? null : index);
+  };
 
   return (
     <div className="blog-container">
@@ -46,7 +52,19 @@ const Blog = () => {
             <div key={index} className="blog-post">
               <h2>{post.title}</h2>
               <p className="blog-author">by {post.author} on {new Date(post.date).toLocaleDateString()}</p>
-              <div className="blog-content">{documentToReactComponents(post.content.json)}</div>
+              <div className="blog-content">
+                {expandedPost === index
+                  ? documentToReactComponents(post.content.json)
+                  : (
+                    <>
+                      {documentToReactComponents({
+                        ...post.content.json,
+                        content: post.content.json.content.slice(0, 1) // Show only the first paragraph as a preview
+                      })}
+                      <button className="invisible-button" onClick={() => toggleReadMore(index)}>Read More</button>
+                    </>
+                  )}
+              </div>
             </div>
           ))}
         </div>

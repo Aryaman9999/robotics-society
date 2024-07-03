@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Blog from './pages/Blog';
 import Resources from './pages/Resources';
+import Events from './pages/Events';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/resources" element={<Resources />} />
+          <Route path="/events" element={<Events />} />
         </Routes>
       </div>
     </Router>
