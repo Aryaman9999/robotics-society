@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Blog from './pages/Blog';
 import Resources from './pages/Resources';
 import Events from './pages/Events';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (

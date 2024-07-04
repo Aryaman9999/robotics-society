@@ -1,31 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './Navbar.css'; 
+import { Navbar, Nav, Container } from 'react-bootstrap';
 
-const Navbar = () => {
+function Navigation() {
   return (
-    <nav className="navbar">
-      <div className="navbar-container">
-        <div className="navbar-logo">
-          Robotics Society
-        </div>
-        <ul className="navbar-menu">
-          <li className="navbar-item">
-            <Link to="/" className="navbar-link">Home</Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="/blog" className="navbar-link">Blogs</Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="/resources" className="navbar-link">Resources</Link>
-          </li> <li className="navbar-item">
-            <Link to="/events" className="navbar-link">Events</Link>
-          </li>
-
-        </ul>
-      </div>
-    </nav>
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Container>
+        <Navbar.Brand href="#home">Robotics Society</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#about">About</Nav.Link>
+            <Nav.Link href="#events">Events</Nav.Link>
+            <Nav.Link href="#blogs">Blogs</Nav.Link>
+            <Nav.Link href="#resources">Resources</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
-};
+}
 
-export default Navbar;
+export default Navigation;
