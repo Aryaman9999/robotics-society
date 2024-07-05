@@ -1,4 +1,3 @@
-// src/pages/Events.js (assuming the file structure)
 import React, { useEffect, useState } from 'react';
 import client from '../contentfulClient';
 import './Events.css';
@@ -16,6 +15,9 @@ const Events = () => {
               eventDate
               eventDescription
               googleFormLink
+              eventImage {
+                url
+              }
             }
           }
         }
@@ -41,6 +43,11 @@ const Events = () => {
             <div className="card-body">
               <h2 className="card-title">{event.eventName}</h2>
               <p className="card-text"><strong>Date:</strong> {new Date(event.eventDate).toLocaleDateString()}</p>
+              {event.eventImage && (
+                <div className="event-image-container">
+                  <img src={event.eventImage.url} alt={event.eventName} className="event-image" />
+                </div>
+              )}
               <p className="card-text">{event.eventDescription}</p>
               {event.googleFormLink && (
                 <div className="mt-3">
