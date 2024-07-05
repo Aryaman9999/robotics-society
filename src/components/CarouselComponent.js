@@ -1,36 +1,57 @@
 // src/components/CarouselComponent.js
-import React from 'react';
-import { useQuery } from '@apollo/client';
+
+import React, { useEffect, useState } from 'react';
 import { Carousel } from 'react-bootstrap';
-import { GET_CAROUSEL_ITEMS } from '../queries/carouselItems';
-import './Carousel.css'; // Import the CSS file
+import client from '../contentfulClient';
+import './Carousel.css';
 
 const CarouselComponent = () => {
-  const { loading, error, data } = useQuery(GET_CAROUSEL_ITEMS);
+  const [carouselItems, setCarouselItems] = useState([]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) {
-    console.error('Error fetching carousel items:', error);
-    return <p>Error loading carousel items: {error.message}</p>;
-  }
+  useEffect(() => {
+    const fetchCarouselItems = async () => {
+      const query = `
+        {
+          carouselImageCollection {
+            items {
+              imageCollection {
+                items {
+                  url
+                }
+              }
+              description
+            }
+          }
+        }
+      `;
+      try {
+        const response = await client.request(query);
+        setCarouselItems(response.carouselImageCollection.items);
+      } catch (error) {
+        console.error('Error fetching carousel items:', error.message);
+      }
+    };
 
-  const carouselItems = data.carouselImageCollection.items;
+    fetchCarouselItems();
+  }, []);
 
   return (
     <Carousel>
       {carouselItems.map((item, index) => (
-        item.imageCollection.items.map((image, idx) => (
-          <Carousel.Item key={`${index}-${idx}`}>
+        <Carousel.Item key={index}>
+          <div className="carousel-image-container">
             <img
-              className="d-block w-100"
-              src={image.url}
-              alt={`Slide ${index}`}
+              className="carousel-image"
+              src={item.imageCollection.items[0].url} // Assuming the first image is displayed
+              alt={item.description}
             />
+          </div>
+          {item.description && (
             <Carousel.Caption>
-              <p>{item.description}</p>
+              <h3>{item.description}</h3>
             </Carousel.Caption>
-          </Carousel.Item>
-        ))
+          )}
+        </Carousel.Item>
       ))}
     </Carousel>
   );
