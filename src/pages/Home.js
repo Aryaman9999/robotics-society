@@ -16,7 +16,7 @@ const Home = () => {
       facebook: 'https://facebook.com/roboticssociety',
       twitter: 'https://twitter.com/roboticssociety',
       instagram: 'https://instagram.com/roboticssociety',
-    }
+    },
   };
 
   return (
@@ -33,8 +33,12 @@ const Home = () => {
               <Card.Title>How will joining robotics help students?</Card.Title>
               <ListGroup variant="flush">
                 <ListGroup.Item>Robotics teaches essential teamwork skills.</ListGroup.Item>
-                <ListGroup.Item>Students will be able to compete in robotics competitions held by our college or any other college and win prizes or scholarships.</ListGroup.Item>
-                <ListGroup.Item>Students learn how to communicate across different technology platforms and gain experience in creating an effective message for various audiences.</ListGroup.Item>
+                <ListGroup.Item>
+                  Students will be able to compete in robotics competitions held by our college or any other college and win prizes or scholarships.
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  Students learn how to communicate across different technology platforms and gain experience in creating an effective message for various audiences.
+                </ListGroup.Item>
               </ListGroup>
             </Card.Body>
           </Card>
@@ -46,9 +50,15 @@ const Home = () => {
             <Card.Body>
               <Card.Title>Contact Us</Card.Title>
               <ListGroup variant="flush">
-                <ListGroup.Item><FontAwesomeIcon icon={faEnvelope} /> <a href={`mailto:${contactDetails.email}`}>{contactDetails.email}</a></ListGroup.Item>
-                <ListGroup.Item><FontAwesomeIcon icon={faPhone} /> {contactDetails.phone}</ListGroup.Item>
-                <ListGroup.Item><FontAwesomeIcon icon={faMapMarkerAlt} /> {contactDetails.address}</ListGroup.Item>
+                <ListGroup.Item>
+                  <FontAwesomeIcon icon={faEnvelope} /> <a href={`mailto:${contactDetails.email}`}>{contactDetails.email}</a>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <FontAwesomeIcon icon={faPhone} /> {contactDetails.phone}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <FontAwesomeIcon icon={faMapMarkerAlt} /> {contactDetails.address}
+                </ListGroup.Item>
               </ListGroup>
             </Card.Body>
           </Card>
