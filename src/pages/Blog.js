@@ -1,43 +1,41 @@
-// src/Blog.js
 import React, { useEffect, useState } from 'react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { useParams } from 'react-router-dom';
 import client from '../contentfulClient';
 import './Blog.css';
 
+// Import Robotics Queries
+import {
+  ROBOTICS_BLOGS_QUERY,
+} from '../queries/robotics';
+
 const Blog = () => {
+  const { society } = useParams();
   const [posts, setPosts] = useState([]);
   const [expandedPost, setExpandedPost] = useState(null);
 
   useEffect(() => {
-    console.log('Blog component is rendering');
-
     const fetchPosts = async () => {
-      const query = `
-        {
-          blogPostCollection {
-            items {
-              title
-              content {
-                json
-              }
-              author
-              date
-            }
-          }
-        }
-      `;
+      let query;
+      switch (society) {
+        case 'robotics':
+          query = ROBOTICS_BLOGS_QUERY;
+          break;
+        default:
+          query = '';
+      }
+
       try {
         const response = await client.request(query);
         console.log('Response from Contentful:', response);
         setPosts(response.blogPostCollection.items);
       } catch (error) {
         console.error('Error fetching data:', error.message);
-        console.log('Full error:', error);  
       }
     };
 
     fetchPosts();
-  }, []);
+  }, [society]);
 
   const toggleReadMore = (index) => {
     setExpandedPost(expandedPost === index ? null : index);

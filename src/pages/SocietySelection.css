@@ -1,0 +1,23 @@
+/* src/pages/SocietySelection.css */
+header {
+    margin-bottom: 50px;
+  }
+  
+  .card {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  

@@ -1,38 +1,29 @@
-// src/pages/Home.js
 import React from 'react';
 import CarouselComponent from '../components/CarouselComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap';
+import { societiesData } from '../data/societiesData.js'; // Import the data file
 import './Home.css';
 
-const Home = () => {
-  const contactDetails = {
-    email: 'info@roboticssociety.com',
-    phone: '+91 6280417424',
-    address: 'PEC Chandigarh',
-    socialMedia: {
-      facebook: 'https://facebook.com/roboticssociety',
-      twitter: 'https://twitter.com/roboticssociety',
-      instagram: 'https://instagram.com/roboticssociety',
-    },
-  };
+const Home = ({ society }) => {
+  const { email, phone, address, socialMedia } = societiesData[society];
 
   return (
     <Container className="home-container">
       <Row className="mb-4">
         <Col>
-          <CarouselComponent />
+          <CarouselComponent society={society} />
         </Col>
       </Row>
       <Row className="mb-4">
         <Col>
           <Card>
             <Card.Body>
-              <Card.Title>How will joining robotics help students?</Card.Title>
+              <Card.Title>How will joining {society === 'robotics' ? 'Robotics Society' : 'SME Society'} help students?</Card.Title>
               <ListGroup variant="flush">
-                <ListGroup.Item>Robotics teaches essential teamwork skills.</ListGroup.Item>
+                <ListGroup.Item>Teaches essential teamwork skills.</ListGroup.Item>
                 <ListGroup.Item>
                   Students will be able to compete in robotics competitions held by our college or any other college and win prizes or scholarships.
                 </ListGroup.Item>
@@ -51,13 +42,13 @@ const Home = () => {
               <Card.Title>Contact Us</Card.Title>
               <ListGroup variant="flush">
                 <ListGroup.Item>
-                  <FontAwesomeIcon icon={faEnvelope} /> <a href={`mailto:${contactDetails.email}`}>{contactDetails.email}</a>
+                  <FontAwesomeIcon icon={faEnvelope} /> <a href={`mailto:${email}`}>{email}</a>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <FontAwesomeIcon icon={faPhone} /> {contactDetails.phone}
+                  <FontAwesomeIcon icon={faPhone} /> {phone}
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <FontAwesomeIcon icon={faMapMarkerAlt} /> {contactDetails.address}
+                  <FontAwesomeIcon icon={faMapMarkerAlt} /> {address}
                 </ListGroup.Item>
               </ListGroup>
             </Card.Body>
@@ -68,13 +59,13 @@ const Home = () => {
             <Card.Body>
               <Card.Title>Follow Us</Card.Title>
               <div className="social-media-icons">
-                <a href={contactDetails.socialMedia.facebook} target="_blank" rel="noopener noreferrer">
+                <a href={socialMedia.facebook} target="_blank" rel="noopener noreferrer">
                   <FontAwesomeIcon icon={faFacebook} size="2x" />
                 </a>
-                <a href={contactDetails.socialMedia.twitter} target="_blank" rel="noopener noreferrer">
+                <a href={socialMedia.twitter} target="_blank" rel="noopener noreferrer">
                   <FontAwesomeIcon icon={faTwitter} size="2x" />
                 </a>
-                <a href={contactDetails.socialMedia.instagram} target="_blank" rel="noopener noreferrer">
+                <a href={socialMedia.instagram} target="_blank" rel="noopener noreferrer">
                   <FontAwesomeIcon icon={faInstagram} size="2x" />
                 </a>
               </div>

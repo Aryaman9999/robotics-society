@@ -1,25 +1,39 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navigation from './components/Navbar';
+import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
+import SocietySelectionPage from './pages/SocietySelection';
 import Home from './pages/Home';
-import Blog from './pages/Blog';
-import Resources from './pages/Resources';
 import Events from './pages/Events';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Resources from './pages/Resources';
+import Blog from './pages/Blog';
+
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <Router>
       <div>
-        <Navigation />
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/resources" element={<Resources />} />
-          <Route path="/events" element={<Events />} />
+          <Route path="/" element={<SocietySelectionPage />} />
+          <Route path="/:society/*" element={<Main />} />
         </Routes>
       </div>
     </Router>
+  );
+}
+
+function Main() {
+  let { society } = useParams();
+
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home society={society} />} />
+        <Route path="events" element={<Events society={society} />} />
+        <Route path="resources" element={<Resources society={society} />} />
+        <Route path="blogs" element={<Blog society={society} />} />
+      </Routes>
+    </>
   );
 }
 

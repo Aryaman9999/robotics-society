@@ -1,27 +1,28 @@
+// src/pages/Events.js
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import client from '../contentfulClient';
 import './Events.css';
-
+import { ROBOTICS_EVENTS_QUERY } from '../queries/robotics.js';
+import { SME_EVENTS_QUERY } from '../queries/sme.js';
 const Events = () => {
   const [events, setEvents] = useState([]);
+  const { society } = useParams();
+
+  const getQuery = (society) => {
+    switch (society) {
+      case 'robotics':
+        return ROBOTICS_EVENTS_QUERY;
+      case 'sme':
+        return SME_EVENTS_QUERY;
+      default:
+        return '';
+    }
+  };
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const query = `
-        {
-          eventCollectionCollection {
-            items {
-              eventName
-              eventDate
-              eventDescription
-              googleFormLink
-              eventImage {
-                url
-              }
-            }
-          }
-        }
-      `;
+      const query = getQuery(society);
       try {
         const response = await client.request(query);
         const eventData = response.eventCollectionCollection.items;
@@ -32,7 +33,7 @@ const Events = () => {
     };
 
     fetchEvents();
-  }, []);
+  }, [society]);
 
   return (
     <div className="container events-container">

@@ -1,39 +1,57 @@
 // src/components/CarouselComponent.js
-
 import React, { useEffect, useState } from 'react';
 import { Carousel } from 'react-bootstrap';
-import client from '../contentfulClient';
+import client from '../contentfulClient'; // Import your Contentful client
 import './Carousel.css';
 
-const CarouselComponent = () => {
+const CarouselComponent = ({ society }) => {
   const [carouselItems, setCarouselItems] = useState([]);
 
   useEffect(() => {
     const fetchCarouselItems = async () => {
-      const query = `
-        {
-          carouselImageCollection {
-            items {
-              imageCollection {
-                items {
-                  url
+      let query;
+      if (society === 'robotics') {
+        query = `
+          {
+            carouselImageCollection {
+              items {
+                imageCollection {
+                  items {
+                    url
+                  }
                 }
+                description
               }
-              description
             }
           }
-        }
-      `;
+        `;
+      } else if (society === 'sme') {
+        query = `
+          {
+            smeCarouselImageCollection {
+              items {
+                imageCollection {
+                  items {
+                    url
+                  }
+                }
+                description
+              }
+            }
+          }
+        `;
+      }
+
       try {
         const response = await client.request(query);
-        setCarouselItems(response.carouselImageCollection.items);
+        setCarouselItems(response[society === 'robotics' ? 'carouselImageCollection' : 'smeCarouselImageCollection'].items);
       } catch (error) {
         console.error('Error fetching carousel items:', error.message);
       }
     };
 
     fetchCarouselItems();
-  }, []);
+  }, [society]);
 
   return (
     <Carousel>

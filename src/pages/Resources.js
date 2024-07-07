@@ -1,29 +1,63 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import client from '../contentfulClient';
 import './Resources.css'; // Optional: for additional styling
 
+// Import Queries
+import {
+  ROBOTICS_RESOURCES_QUERY,
+} from '../queries/robotics';
+
+import {
+  SME_RESOURCES_QUERY,
+} from '../queries/sme';
+
 const Resources = () => {
-  const [repos, setRepos] = useState([]);
+  const { society } = useParams();
+  const [resources, setResources] = useState([]);
 
   useEffect(() => {
-    axios.get('https://api.github.com/orgs/Robotics-Society-PEC/repos') // Change 'your-organization' to your actual GitHub organization name
-      .then(response => setRepos(response.data))
-      .catch(error => console.error(error));
-  }, []);
+    const fetchResources = async () => {
+      let query;
+      switch (society) {
+        case 'robotics':
+          query = ROBOTICS_RESOURCES_QUERY;
+          break;
+        case 'sme':
+          query = SME_RESOURCES_QUERY;
+          break;
+        default:
+          query = '';
+      }
+
+      try {
+        const response = await client.request(query);
+        console.log('Response from Contentful:', response);
+        setResources(response.resourceCollectionCollection.items);
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+      }
+    };
+
+    fetchResources();
+  }, [society]);
 
   return (
     <div className="resources">
-      <h1>Robotics Society Projects</h1>
-      <ul className="repo-list">
-        {repos.map(repo => (
-          <li key={repo.id} className="repo-item">
-            <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="repo-link">
-              {repo.name}
-            </a>
-            <p>{repo.description}</p>
-            <p>⭐ {repo.stargazers_count} | Forks: {repo.forks_count}</p>
-          </li>
-        ))}
+      <h1>{society === 'robotics' ? 'Robotics Society' : 'SME Society'} Resources</h1>
+      <ul className="resource-list">
+        {resources.length > 0 ? (
+          resources.map((resource, index) => (
+            <li key={index} className="resource-item">
+              <a href={resource.link} target="_blank" rel="noopener noreferrer" className="resource-link">
+                {resource.title}
+              </a>
+              <p>{resource.description}</p>
+            </li>
+          ))
+        ) : (
+          <p>Loading...</p>
+        )}
       </ul>
     </div>
   );

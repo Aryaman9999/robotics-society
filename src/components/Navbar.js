@@ -1,24 +1,69 @@
-import React from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import './Navbar.css';
 
-function Navigation() {
+const Navbar = () => {
+  const { society } = useParams();
+  const [expanded, setExpanded] = useState(false);
+
+  const handleToggleCollapse = () => {
+    setExpanded(!expanded);
+  };
+
+  const handleGoBack = () => {
+    window.history.back();
+  };
+
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" className="sticky-top">
-      <Container>
-        <Navbar.Brand as={Link} to="/">Robotics Society</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/blog">Blogs</Nav.Link>
-            <Nav.Link as={Link} to="/resources">Resources</Nav.Link>
-            <Nav.Link as={Link} to="/events">Events</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div className="container-fluid">
+        <NavLink className="navbar-brand" to={`/${society}`}>
+          {society.toUpperCase()}
+        </NavLink>
+        <button
+          className="navbar-toggler"
+          type="button"
+          onClick={handleToggleCollapse}
+          aria-controls="navbarNav"
+          aria-expanded={expanded ? 'true' : 'false'}
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className={`collapse navbar-collapse ${expanded ? 'show' : ''}`} id="navbarNav">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <NavLink className="nav-link" to={`/${society}`} activeClassName="active" onClick={handleToggleCollapse}>
+                Home
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to={`/${society}/events`} activeClassName="active" onClick={handleToggleCollapse}>
+                Events
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to={`/${society}/resources`} activeClassName="active" onClick={handleToggleCollapse}>
+                Resources
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to={`/${society}/blogs`} activeClassName="active" onClick={handleToggleCollapse}>
+                Blogs
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <button className="btn btn-link nav-link" onClick={handleGoBack}>
+                <FontAwesomeIcon icon={faArrowLeft} /> Back
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
   );
-}
+};
 
-export default Navigation;
+export default Navbar;
